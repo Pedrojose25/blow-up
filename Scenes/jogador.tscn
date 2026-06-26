@@ -135,7 +135,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_riqys"]
-size = Vector2(13.245, 12.165)
+size = Vector2(10.72, 6.215)
 
 [node name="Personagem" type="CharacterBody2D" unique_id=313322919]
 script = ExtResource("1_w43nc")
@@ -146,5 +146,5 @@ sprite_frames = SubResource("SpriteFrames_riqys")
 animation = &"parado"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1683594915]
-position = Vector2(0, 9)
+position = Vector2(0, 12)
 shape = SubResource("RectangleShape2D_riqys")
