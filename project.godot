@@ -11,13 +11,17 @@ config_version=5
 [application]
 
 config/name="Blow up"
+run/main_scene="uid://bl65kbl3eouxc"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 
 [display]
 
-window/stretch/mode="canvas_items"
-window/stretch/aspect="expand"
+window/size/viewport_width=320
+window/size/viewport_height=240
+window/size/mode=2
+window/stretch/mode="viewport"
+window/canvas_textures/default_texture_filter=1
 
 [physics]
 
@@ -25,4 +29,5 @@ window/stretch/aspect="expand"
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 rendering_device/driver.windows="d3d12"
