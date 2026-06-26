@@ -1,3 +1,15 @@
 [gd_scene format=3 uid="uid://clr80451fjps"]
 
+[ext_resource type="PackedScene" uid="uid://bl65kbl3eouxc" path="res://Scenes/mapa.tscn" id="1_iylmw"]
+[ext_resource type="PackedScene" uid="uid://dfsd3ith6lj4e" path="res://Scenes/jogador.tscn" id="2_g3ehx"]
+
 [node name="Principal" type="Node2D" unique_id=2016071117]
+
+[node name="Map" parent="." unique_id=1475813020 instance=ExtResource("1_iylmw")]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=2010569020]
+offset = Vector2(-7.55, -8.575)
+zoom = Vector2(1.33, 1.16)
+
+[node name="Personagem" parent="." unique_id=313322919 instance=ExtResource("2_g3ehx")]
+position = Vector2(-104, -99)
