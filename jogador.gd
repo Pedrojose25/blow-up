@@ -2,6 +2,9 @@ extends CharacterBody2D
 
 @export var velocidade: float = 80.0
 
+# Pré-carrega a cena da bomba para podermos criá-la no jogo
+const SCENE_BOMBA = preload("res://Scenes/bomba.tscn")
+
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 var ultima_direcao: String = "baixo"
@@ -10,8 +13,13 @@ var historico_input: Array[String] = []
 # Distância máxima em pixels que o jogo vai te "ajudar" a deslizar na quina (ajuste se achar muito ou pouco)
 const MARGEM_DESLIZE: float = 4.0
 
+
 func _physics_process(_delta):
 	atualizar_historico_input()
+	
+	# Detecta se o jogador apertou o botão de soltar bomba (Tecla Z)
+	if Input.is_action_just_pressed("colocar_bomba"):
+		soltar_bomba()
 	
 	var direcao = Vector2.ZERO
 	
@@ -41,7 +49,7 @@ func _physics_process(_delta):
 func tentar_deslizar_na_quina(dir: Vector2):
 	
 	# Cria uma pequena simulação de movimento para os lados para ver se desengata
-	var espaco_global = get_world_2d().direct_space_state
+	var _espaco_global = get_world_2d().direct_space_state
 	
 	if dir.y != 0: # Se estiver tentando andar para CIMA ou para BAIXO
 		# Testa se mover um pouquinho para a direita desvia do bloco
@@ -101,3 +109,20 @@ func parar_animacao():
 	sprite.stop()
 	sprite.animation = "andar_" + ultima_direcao
 	sprite.frame = 0
+
+# Nova função: Cria a bomba centralizada no grid de 16x16
+func soltar_bomba():
+	var bomba = SCENE_BOMBA.instantiate()
+	
+	# Em vez de usar a posição do jogador, usamos o centro real do CollisionShape2D (seus pés!)
+	var posicao_pes = $CollisionShape2D.global_position
+	
+	# MATEMÁTICA DO GRID:
+	# Pega o centro da colisão dos pés, divide por 16, arredonda para baixo e volta para pixels
+	var posicao_grid = (posicao_pes / 16.0).floor() * 16.0
+	
+	# Centraliza a bomba no meio desse bloco do grid
+	bomba.global_position = posicao_grid + Vector2(8, 8)
+	
+	# Adiciona a bomba na cena do jogo
+	get_parent().add_child(bomba)

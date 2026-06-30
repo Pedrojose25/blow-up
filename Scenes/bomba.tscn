@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://cqs57b4vtu3dr"]
 
+[ext_resource type="Script" uid="uid://dwfgjhgxnauya" path="res://scripts/bomba.gd" id="1_lcqd8"]
 [ext_resource type="Texture2D" uid="uid://f21liftsru2p" path="res://Assets/sprites/Bomb/Bomb64.png" id="1_o33gc"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lcqd8"]
@@ -34,7 +35,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_v62er")
 }],
 "loop": 1,
-"name": &"default",
+"name": &"piscando",
 "speed": 5.0
 }]
 
@@ -42,14 +43,21 @@ animations = [{
 radius = 24.020824
 
 [node name="Bomba" type="Area2D" unique_id=1705577706]
+scale = Vector2(0.33, 0.33)
+script = ExtResource("1_lcqd8")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2126573132]
-scale = Vector2(3, 1)
+position = Vector2(3.030305, 0)
+scale = Vector2(3.4090908, 0.85227275)
 sprite_frames = SubResource("SpriteFrames_bhunq")
-frame_progress = 0.05419584
+animation = &"piscando"
+frame_progress = 0.724226
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1403619656]
 position = Vector2(1, 0)
 shape = SubResource("CircleShape2D_bhunq")
 
-[node name="Timer" type="Timer" parent="." unique_id=1432164827]
+[node name="TimerExplosao" type="Timer" parent="." unique_id=1432164827]
+wait_time = 3.0
+
+[connection signal="timeout" from="TimerExplosao" to="." method="_on_timer_explosao_timeout"]
